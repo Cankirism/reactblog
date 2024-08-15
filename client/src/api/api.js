@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //const baseUrl = "http://localhost:6003/api";
-const baseUrl="https://reactblog-backend.vercel.app/"
+const baseUrl="https://reactblog-backend.vercel.app/api"
 const api = axios.create({
     baseURL:baseUrl
 });

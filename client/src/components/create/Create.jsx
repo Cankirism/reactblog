@@ -3,16 +3,15 @@ import "./create.css";
 import { useFormik, UseFormik } from "formik";
 import FileBase64 from "react-file-base64";
 import { createContent, fetchCategories, postImage } from "../../api/api";
-import { HttpStatusCode } from "axios";
-import MDEditor from "@uiw/react-md-editor";
+
 import Createmd from "./Createmd";
 import FetchCategory from "../category/FetchCategory";
 export const Create = () => {
   const [file, setFile] = useState("");
   const [value, setValue] = React.useState("");
   const [content, setContent] = useState("");
-  const [categoryId,setCategoryId]=useState("");
- const  [category,setCategory]=useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [category, setCategory] = useState("");
   const getImage = async (img) => {
     setFile(img);
   };
@@ -27,12 +26,11 @@ export const Create = () => {
     await createContent(items);
   };
 
-  const handleCategory = (id,name)=>{
+  const handleCategory = (id, name) => {
     setCategoryId(id);
-    setCategory(name)
-    console.log("category id is",id,name);
-
-  }
+    setCategory(name);
+    console.log("category id is", id, name);
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -41,8 +39,8 @@ export const Create = () => {
       content: "",
       createdAt: Date.now(),
       categoryId: "",
-     category:"",
-      isActive: true
+      category: "",
+      isActive: true,
     },
     onSubmit: async (values) => {
       try {
@@ -51,10 +49,9 @@ export const Create = () => {
           headerImageUrl: "",
           content: content,
           createdAt: Date.now(),
-          category:"",
+          category: "",
           categoryId: 1,
-          isActive: true
-        
+          isActive: true,
         };
         const img = {
           image: file.base64,
@@ -63,8 +60,8 @@ export const Create = () => {
         const uploadResult = await uploadImages(img);
         const copiedBlogItems = { ...blogItems };
         copiedBlogItems.headerImageUrl = uploadResult;
-       copiedBlogItems.categoryId=categoryId;
-      copiedBlogItems.category=category;
+        copiedBlogItems.categoryId = categoryId;
+        copiedBlogItems.category = category;
         const postBlogResult = await postBlogItems(copiedBlogItems);
         if (postBlogResult) {
           alert("blog yüklendi");
@@ -101,7 +98,9 @@ export const Create = () => {
             ></textarea>
 
             <Createmd content={content} />
-             <FetchCategory handleCategory={(id,name)=>handleCategory(id,name)}/>
+            <FetchCategory
+              handleCategory={(id, name) => handleCategory(id, name)}
+            />
             <button
               className="button"
               type="submit"

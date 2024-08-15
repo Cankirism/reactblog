@@ -1,0 +1,8 @@
+@media (max-width:600px){
+    .footer-p {
+        font-size: small;
+    }
+    .div-social .icon{
+        font-size: small;
+    }
+}

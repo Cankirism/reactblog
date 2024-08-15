@@ -1,0 +1,163 @@
+
+
+body {
+  font-family: 'PT Sans', sans-serif;
+
+  padding: 2rem;
+}
+button {
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.75em; 
+  display: inline-block;
+  text-decoration: none;
+  
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    text-decoration: none;
+    outline: none;
+  }
+}
+.comment-box {
+  justify-content: center;
+    max-width: 100%;
+  color: black;
+  
+  border-radius: 0.875rem;
+  padding: 0.2rem 1rem 2rem;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.comment-form {
+  background-color: #fff;
+  border-radius: 0.25rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding: 1rem;  
+  width: 100%;
+
+}
+.comment-form-fields {
+  margin-bottom: 0,25rem;
+  input, textarea {
+    border: none;
+    border-bottom: 1px solid ;
+    font-size: 0.85rem;
+    padding: 0.25rem 0;
+    width: 99%;
+    
+    &:focus {
+      border-bottom-color:gray;
+      outline: none;
+    }
+  }
+  textarea {
+    font-style: italic;
+  }
+}
+.comment-form-actions {
+  
+}
+.comment-count {
+  color: darkgray;
+}
+#comment-reveal {
+  float: right;
+  background-color:blue;
+  color: #fff;
+}
+.comment {
+  border-top: 0.1rem solid gray;
+}
+.comment-body {
+  font-style: italic;
+  margin-left: 1rem;
+}
+.comment-header {
+    color:#212121
+}
+.comment-footer {
+  margin-bottom: 1rem;
+}
+.comment-footer-delete {
+  padding: 0.2rem 0;
+  color: darkgray;
+  text-decoration: none;
+  
+  &:hover {
+    color: blue;
+    font-weight: bold;
+  }
+}
+ .comment-div {
+    display: flex;
+    justify-content: flex-end;
+
+  }
+  .comment-btn {
+    background-color: #212121;
+    border: 1px solid;
+    border-color: #212121;
+    border-radius: 6px;
+    height: 48px;
+    line-height: 1px;
+    color:#fff;
+    padding: 15px 28px;
+    font-weight: 400;
+    font-family:sans-serif;
+  
+
+    
+    /* background-color: black;
+    font-size:small;
+    padding: 0;
+    box-sizing:border-box;
+    margin: 0;
+    color: azure;
+    text-align: center; */
+ 
+  }
+  @media (max-width:768x) {
+    .comment-btn {
+     
+      border: 1px solid;
+      border-color: #212121;
+      border-radius: 6px;
+      height: 20px;
+     
+  
+      
+      /* background-color: black;
+      font-size:small;
+      padding: 0;
+      box-sizing:border-box;
+      margin: 0;
+      color: azure;
+      text-align: center; */
+   
+    }
+    .comment-form-fields {
+      margin-bottom: 0,25rem;
+      input, textarea {
+        border: none;
+        border-bottom: 1px solid ;
+        font-size: 0.85rem;
+        padding: 0.25rem 0;
+        width: 99%;
+        
+        &:focus {
+          border-bottom-color:gray;
+          outline: none;
+        }
+      }
+      textarea {
+        font-style: italic;
+      }
+    }
+
+
+  }

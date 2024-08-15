@@ -9,7 +9,7 @@ import { DetailsPages } from "./pages/details/DetailsPages"
 import { Account } from "./pages/account/Account"
 import { Create } from "./components/create/Create"
 import Details from "./pages/details/Details"
-import MDE from "./components/create/MDE"
+
 import Createmd from "./components/create/Createmd"
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
           <Route exact path='/details/:id' component={Details} />
           <Route exact path='/account' component={Account} />
           <Route exact path='/create' component={Create} />
-        <Route exact path='/mde' component={MDE} />
+       
         <Route exact path='/createmde' component={Createmd} />
         </Switch>
         <Footer />

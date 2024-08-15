@@ -17,11 +17,11 @@ export const Header = () => {
           <div className='logo'>
 {/* <img src={logo} alt='logo' width='150px' height="100px" /> */}
 <svg width="250" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 300">
-<text x="150" y="160" font-family="poppins" font-size="120" fontWeight="normal" fill="gray">Mühendisin</text>
+<text x="150" y="160" font-family="serif" font-size="120" fontWeight="bold" fill="gray">Mühendisin Not Defteri</text>
 
 
-<text x="850" y="160" fontFamily="poppins" fontWeight="normal" fontSize="120"  fill="gray">Not </text>
-<text x="1080" y="160" fontFamily="poppins" fontWeight="normal" fontSize="120"  fill="gray">Defteri </text>
+{/* <text x="850" y="160" fontFamily="poppins" fontWeight="normal" fontSize="120"  fill="gray">Not </text>
+<text x="1080" y="160" fontFamily="poppins" fontWeight="normal" fontSize="120"  fill="gray">Defteri </text> */}
 
 
 </svg> 

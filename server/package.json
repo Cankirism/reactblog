@@ -1,6 +1,6 @@
 {
     "name": "blog-backend",
-    "homepage": "",
+    "homepage": "https://reactblog-be.vercel.app/",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",

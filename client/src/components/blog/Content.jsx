@@ -16,7 +16,7 @@ const Content = () => {
     useEffect(()=>{
         const fetchBlog = async()=>{
             const result = await getBlogs();
-            debugger;
+           
             setBlog(result.data);
            // fetchCategory(result.data.categoryId);
         }

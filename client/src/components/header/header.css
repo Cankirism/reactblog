@@ -16,7 +16,7 @@ nav a {
 }
 /* User */
 .profile {
-  margin-left: 30px;
+  margin-left: 10px;
   cursor: pointer;
 }
 .profile .image {
@@ -73,7 +73,23 @@ header.active {
   z-index: 9999;
   background: #fff;
 }
+.svg-text {
+  font-size: 120px;
+  font-weight: bold;
+
+}
+.svg-base {
+  width: 250px;
+  height: 40px;
+}
 @media screen and (max-width: 768px) {
+  header {
+    background: #fff;
+    padding: 0px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
+    position: relative;
+    z-index: 44;
+  }
   header .search {
     display: none;
   }
@@ -89,6 +105,19 @@ header.active {
   .openProfile h4 {
     font-size: 12px;
     font-weight: 500;
+  }
+  .profile {
+   
+    cursor: pointer;
+  }
+   .svg-text {
+    font-size: 80px;
+    font-weight: normal;
+  
+  }
+  .svg-base {
+    width: 180px;
+    height: 40px;
   }
   
 }

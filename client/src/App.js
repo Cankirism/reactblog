@@ -11,6 +11,7 @@ import { Create } from "./components/create/Create"
 import Details from "./pages/details/Details"
 
 import Createmd from "./components/create/Createmd"
+import Authorize from "./authorize/Authorize"
 
 const App = () => {
   return (
@@ -23,7 +24,11 @@ const App = () => {
           <Route exact path='/register' component={Regsiter} />
           <Route exact path='/details/:id' component={Details} />
           <Route exact path='/account' component={Account} />
+         
+          <Authorize>
           <Route exact path='/create' component={Create} />
+          </Authorize>
+         
        
         <Route exact path='/createmde' component={Createmd} />
         </Switch>

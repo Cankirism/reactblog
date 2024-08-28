@@ -39,7 +39,7 @@ export const User = () => {
                     <h4>Anasayfa</h4>
                   </button>
                   </Link>
-                <Link to='/create'>
+                <Link to='/'>
                   <button className='box'>
                     <RiImageAddLine className='icon' />
                     <h4>Hakkında</h4>

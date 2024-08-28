@@ -22,6 +22,10 @@ button {
     outline: none;
   }
 }
+ .comment  p {
+  color: #5a5a5a;
+  font-size: 14px;
+}
 .comment-box {
   justify-content: center;
     max-width: 100%;
@@ -121,7 +125,11 @@ button {
     text-align: center; */
  
   }
-  @media (max-width:768x) {
+  @media (max-width:768px) {
+    .comment  p {
+      color: #5a5a5a;
+      font-size: 12px;
+    }
     .comment-btn {
      
       border: 1px solid;

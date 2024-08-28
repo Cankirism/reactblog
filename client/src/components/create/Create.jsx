@@ -6,6 +6,8 @@ import { createContent, fetchCategories, postImage } from "../../api/api";
 
 import Createmd from "./Createmd";
 import FetchCategory from "../category/FetchCategory";
+import toast,{ Toaster} from "react-hot-toast";
+import { HttpStatusCode } from "axios";
 export const Create = () => {
   const [file, setFile] = useState("");
   const [value, setValue] = React.useState("");
@@ -22,8 +24,8 @@ export const Create = () => {
     return imageresult.data;
   };
 
-  const postBlogItems = async (items) => {
-    await createContent(items);
+  const postBlogItems = async (items,token) => {
+    return await createContent(items,token);
   };
 
   const handleCategory = (id, name) => {
@@ -52,6 +54,7 @@ export const Create = () => {
           category: "",
           categoryId: 1,
           isActive: true,
+          like:0
         };
         const img = {
           image: file.base64,
@@ -62,12 +65,29 @@ export const Create = () => {
         copiedBlogItems.headerImageUrl = uploadResult;
         copiedBlogItems.categoryId = categoryId;
         copiedBlogItems.category = category;
-        const postBlogResult = await postBlogItems(copiedBlogItems);
-        if (postBlogResult) {
-          alert("blog yüklendi");
+        const token = localStorage.getItem("token")
+        if(!token){
+          throw new Error("Yetkisiz işlem");
         }
+        else {
+          const result = await postBlogItems(copiedBlogItems,token);
+         
+         
+          if(result.status==HttpStatusCode.Ok){
+            toast.success("İçerik eklendi");
+          }
+          else {
+          
+            throw new Error(result.data.message)
+          }
+        
+        }
+
+        
       } catch (err) {
-        console.log("post ederkeb hata", err);
+        toast.error(err.message)
+        
+
       }
     },
   });
@@ -75,6 +95,7 @@ export const Create = () => {
     <>
       <section className="newPost">
         <div className="container boxItems">
+          <Toaster />
           <form id="blogCreationForm" onSubmit={formik.handleSubmit}>
             <div className="img ">
               <h5 className="strong"> Resim Yükleme</h5>

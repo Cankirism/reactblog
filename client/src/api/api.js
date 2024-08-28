@@ -1,7 +1,7 @@
 import axios from "axios";
 
-//const baseUrl = "http://localhost:6003/api";
-const baseUrl="https://reactblog-backend.vercel.app/api"
+const baseUrl = "http://localhost:6003/api";
+//const baseUrl="https://reactblog-backend.vercel.app/api"
 const api = axios.create({
     baseURL:baseUrl
 });
@@ -11,9 +11,18 @@ export const getBlogs = async()=>{
     return api.get("/blog");
 }
 //post blog 
-export const createContent = async(blogContent)=>{
-    return api.post("/blog",blogContent)
-} 
+export const createContent = async(blogContent,token)=>{
+ 
+        console.log("api kısmı token is ",token)
+     return  api.post("/blog",blogContent,{
+            headers:{
+                'Authorization':`Bearer ${token}`
+            }
+        }).catch((err)=>
+         err.response
+        )
+       
+    }
 
 // fetch blog by id 
 
@@ -47,4 +56,7 @@ export const likePost =async(id)=>{
 }
 export const fetchLikeCount =async(id)=>{
     return api.get(`/likesCount/${id}`);
+}
+export const login =async(loginBody)=>{
+    return api.post("/login",loginBody)
 }

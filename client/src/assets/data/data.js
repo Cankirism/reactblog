@@ -7,17 +7,17 @@ export const nav = [
   {
     id: 2,
     text: "Hakkında",
-    url: "/about",
+    url: "/",
   },
   {
     id: 3,
     text: "pages",
-    url: "/pages",
+    url: "/",
   },
   {
     id: 4,
     text: "blog",
-    url: "/blog",
+    url: "/",
   }
   
 ]

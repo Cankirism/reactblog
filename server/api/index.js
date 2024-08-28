@@ -1,17 +1,17 @@
 const express = require("express");
-const rateLimit = require('express-rate-limit');
+const rateLimit = require("express-rate-limit");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const { UploadImage } = require("../utils/UploadImage");
-
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const apiLimitter = rateLimit({
-  windowMs:1000*300,
-  max:1,
-  message:"Beğendiniz"
-})
+  windowMs: 1000 * 60,
+  max: 1,
+  message: "Beğendiniz",
+});
 const app = express();
-
 
 // const options = [
 //     cors({
@@ -45,9 +45,9 @@ const blogSchema = mongoose.Schema({
   content: String,
   createdAt: Date,
   categoryId: String,
-  category:String,
+  category: String,
   isActive: Boolean,
-  like:Number
+  like: Number,
 });
 const blog = mongoose.model("blog", blogSchema);
 
@@ -65,6 +65,14 @@ app.get("/api/blog", async (req, res) => {
 
 app.post("/api/blog", async (req, res) => {
   try {
+    const tokenInfo = req.headers['authorization'].split(" ")[1];
+    console.log(req.headers);
+    console.log("token is",tokenInfo)
+    if(tokenInfo===null ||tokenInfo===undefined){
+      console.log("token geçersiz");
+      throw new Error("Yetkisiz İşlem")
+    }
+   await verifyToken(tokenInfo)
     const blogBody = req.body;
     console.log("blog body is ", blogBody);
     const newBlog = new blog(blogBody);
@@ -77,9 +85,11 @@ app.post("/api/blog", async (req, res) => {
       throw err;
     }
   } catch (err) {
-    console.log("hata oluştuu");
-    res.status(200).send(err)
-   
+  
+    res.status(400).send({
+      status:"error",
+      message:err.message
+    });
   }
 });
 
@@ -98,43 +108,42 @@ app.get("/api/blog/:id", async (req, res) => {
     res.status(400).send("hata", err);
   }
 });
-app.get("/api/like/:id",apiLimitter,async(req,res)=>{
-    try{
-        const blogId = req.params.id;
-        const doc = await blog.findOne({_id:blogId});
-        const likesCount = doc.like+1;
-        console.log(likesCount);
-        const update = await blog.updateOne({_id:blogId},{$set:{"like":likesCount}});
-       console.log("update is",update);
+app.get("/api/like/:id", apiLimitter, async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const doc = await blog.findOne({ _id: blogId });
+    const likesCount = doc.like + 1;
+    console.log(likesCount);
+    const update = await blog.updateOne(
+      { _id: blogId },
+      { $set: { like: likesCount } }
+    );
+    console.log("update is", update);
 
-        if(update){
-         
-            res.status(200).send({count:likesCount});
-        } 
+    if (update) {
+      res.status(200).send({ count: likesCount });
     }
-    catch(err){
-        res.status(400).send(err);
-    }
-})
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 
-app.get("/api/likesCount/:id",async(req,res)=>{
-  try{
+app.get("/api/likesCount/:id", async (req, res) => {
+  try {
     const id = req.params.id;
     console.log(id);
-    const doc = await blog.findOne({_id:id});
+    const doc = await blog.findOne({ _id: id });
     console.log(doc);
-    if(doc){
+    if (doc) {
       console.log("aaa");
       res.status(200).send({
-        like:doc.like
+        like: doc.like,
       });
     }
-  }
-  catch(err){
+  } catch (err) {
     res.status.send(err);
   }
-
-})
+});
 
 //#endregion
 //#region imageUpload
@@ -172,7 +181,6 @@ const commentSchema = mongoose.Schema({
   date: Date,
   isActive: Boolean,
   blogId: String,
-
 });
 
 const comment = mongoose.model("comment", commentSchema);
@@ -212,14 +220,13 @@ app.get("/api/comment/:id", async (req, res) => {
   }
 });
 
-
 //#endregion
 
 //#region  category
 const categorySchema = mongoose.Schema({
   name: String,
   isActive: Boolean,
-  imgUrl:String
+  imgUrl: String,
 });
 const category = mongoose.model("category", categorySchema);
 app.post("/api/category", async (req, res) => {
@@ -243,27 +250,25 @@ app.post("/api/category", async (req, res) => {
 app.get("/api/category", async (req, res) => {
   try {
     const categories = await category.find();
-  
+
     res.status(200).send(categories);
   } catch (err) {
     res.status(400).send(err);
   }
 });
 
-app.get("/api/category/:id",async(req,res)=>{
-    try{
-        const categoryId = req.params.id;
-        const catgry = await category.findOne({_id:categoryId});
+app.get("/api/category/:id", async (req, res) => {
+  try {
+    const categoryId = req.params.id;
+    const catgry = await category.findOne({ _id: categoryId });
 
-        if(catgry){
-            res.status(200).send(catgry)
-        }
-
+    if (catgry) {
+      res.status(200).send(catgry);
     }
-    catch(err){
-        res.status(400).send(err);
-    }
-})
+  } catch (err) {
+    res.status(400).send(err);
+  }
+});
 
 //#endregion
 
@@ -279,6 +284,134 @@ app.get("/api/category/:id",async(req,res)=>{
 //     res.status(400).send(err);
 //   }
 // })
+//#endregion
+
+//#region login and token operations
+const userSchema = mongoose.Schema({
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  isActive: Boolean,
+
+});
+
+const User = mongoose.model("users", userSchema);
+
+// app.post("/api/signup", async (req, res) => {
+//   try {
+
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     const result = await createUser(email, password);
+
+//     if (result) {
+//       res.status(200).send({
+//         status: "success",
+//         message: "user created successfully",
+//       });
+//     } else {
+//       throw new Error();
+//     }
+//   } catch (err) {
+//     if (err.code === 11000) {
+//       res.status(400).send({
+//         status: "error",
+//         message: "user email already exist",
+//       });
+//     }
+//     res.status(400).send({
+//       status: "error",
+//       message: err.message,
+//     });
+//   }
+// });
+
+// const createUser = async (email, password) => {
+//   const saltRounds = 10;
+//   const salt = await bcrypt.genSalt(10);
+
+//   const pass = await bcrypt.hash(password, salt);
+//   const newUser = new User({
+//     email: email,
+//     password: pass,
+//     isActive: true,
+//   });
+//   const result = await newUser.save();
+//   if (result) {
+//     return result;
+//   }
+//   throw err;
+// };
+
+
+app.post("/api/login", async (req, res) => {
+  try {
+    
+    const { email, password } = req.body;
+    const result = await verifyUser(email, password);
+    if (result.status === "success") {
+      res.status(200).send({
+        status: "success",
+        token: result.accessToken,
+      });
+    } else throw new Error(result.message);
+  } catch (err) {
+    res.status(400).send({
+      status: "login error",
+      message: err.message,
+    });
+  }
+});
+
+
+const sercret_key="AuerjkAAKKDKMD__?SKFJNFDS"
+const verifyUser = async (username, password) => {
+  console.log("meil is", username);
+  const searchedUser = await User.findOne({ email: username });
+  if (!searchedUser) {
+    return {
+      status: "error",
+      message: "User not found",
+    };
+  }
+  if (await bcrypt.compare(password, searchedUser.password)) {
+    token = await jwt.sign(
+     
+      {
+        id: searchedUser._id,
+        username: searchedUser.email,
+        type: "user",
+       // expiration:Math.floor(Date.now()/1000)+(60*60)
+      },
+      sercret_key,
+      {
+        expiresIn:'1h'
+      }
+      
+    );
+    return {
+      status: "success",
+      accessToken: token,
+    };
+  }
+  return {
+    status: "error",
+    message: "invalid username or password",
+  };
+};
+
+const verifyToken =async (token)=>{
+  jwt.verify(token,sercret_key,(error,decodedData)=>{
+    if(error){
+      throw new Error(error);
+    }
+    else {
+      return decodedData;
+    }
+  })
+
+
+}
+
 //#endregion
 //get
 app.get("/", async (req, res) => {

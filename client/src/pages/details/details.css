@@ -63,7 +63,11 @@
     font-size: 16px;
     font-weight: 500;
   }
-
+  .singlePage {
+    margin-left:0;
+    margin-right: 0;
+  }
+ 
   
 }
 

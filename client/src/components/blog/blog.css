@@ -3,6 +3,11 @@
 }
 .blog .boxItems {
   transition: 0.5s;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 20px;
+  background: #fff;
+  
 }
 .blog .boxItems:hover {
   box-shadow: 0 2px 4px rgb(0 0 0 / 8%);
@@ -15,6 +20,12 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 20px;
+}
+.blog .img {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  width: 100%;
 }
 .blog .icon {
   margin-right: 10px;
@@ -49,6 +60,7 @@
   margin-right: 20px;
 }
 @media (max-width:768px){
+
   .blog p {
     color: #999;
     font-weight: 400;
@@ -66,14 +78,26 @@
   object-fit:cover;
   border-radius: 10px;
   margin-bottom: 20px;
+  padding: 10px;
 
   }
   .blog label {
     font-size: 12px;
   }
+  .blog .boxItems {
+    transition: 0.5s;
+    border: 1px solid #e6e6e6;
+    border-radius: 12px;
+    padding: 10px;
+    background: #fff;
+    width: 100%;
+   
+   
+  }
 
 }
 @media screen and (min-width:769px ) and (max-width:1281px){
+
   .blog img {
     width: 100%;
   height: 150px;

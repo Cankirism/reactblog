@@ -39,7 +39,7 @@ const Content = () => {
       <section className="blog">
         <div className="container grid3">
           {blog.map((item) => (
-            <div className="box boxItems" key={item._id}>
+            <div className="boxItems" key={item._id}>
               <div className="img">
                 <img src={item.headerImageUrl} alt="" />
               </div>

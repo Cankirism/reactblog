@@ -103,8 +103,8 @@ form input {
 }
 .grid3 {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
 }
 .container {
   max-width: 95%;
@@ -131,3 +131,4 @@ footer .icon {
 .link {
   color: #000;
 }
+

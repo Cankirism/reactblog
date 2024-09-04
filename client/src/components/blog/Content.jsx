@@ -41,7 +41,10 @@ const Content = () => {
           {blog.map((item) => (
             <div className="boxItems" key={item._id}>
               <div className="img">
-                <img src={item.headerImageUrl} alt="" />
+                <Link to={`/details/${item._id}`}>
+                <img src={item.headerImageUrl} alt="blog_image" />
+                </Link>
+                
               </div>
               <div className="details">
                 <div className="tag">
@@ -51,7 +54,7 @@ const Content = () => {
                 <Link to={`/details/${item._id}`} className="link">
                   <h3>{item.title}</h3>
                 </Link>
-                <p>{item.content.slice(0, 180)}...</p>
+                <p>{item.summary.slice(0,300)}...</p>
                 <div className="date">
                   <AiOutlineClockCircle className="icon" />{" "}
                   <label htmlFor="">{item.createdAt.split("T")[0]}</label>

@@ -9,6 +9,7 @@ import Mdviever from "../../components/mdViewer/Mdviewer"
 import RecentComments from "../../components/comments/RecentComments"
 import { AiFillLike } from "react-icons/ai"
 import Likes from "../../components/blog/Likes"
+import Share from "./share/Share"
 const Details = () => {
   const [blog, setBlog] = useState(null);
   const [likes,setLikes]=useState(0);
@@ -63,6 +64,8 @@ const Details = () => {
               <p>
            <Likes id={blog._id} likes={blog.like} />
               </p>
+              <Share item={blog} />
+
               
              
             </div>
@@ -71,6 +74,7 @@ const Details = () => {
       ) : null}
        {/* <CreateComment /> */}
        <RecentComments blogId={id} />
+       
       
     </>
    

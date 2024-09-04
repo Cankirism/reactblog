@@ -12,8 +12,10 @@ export const Create = () => {
   const [file, setFile] = useState("");
   const [value, setValue] = React.useState("");
   const [content, setContent] = useState("");
+  const [summary,setSummary]=useState("");
   const [categoryId, setCategoryId] = useState("");
   const [category, setCategory] = useState("");
+  const [hashtags,setHashtags]=useState("");
   const getImage = async (img) => {
     setFile(img);
   };
@@ -43,6 +45,7 @@ export const Create = () => {
       categoryId: "",
       category: "",
       isActive: true,
+      hashtags:""
     },
     onSubmit: async (values) => {
       try {
@@ -54,7 +57,9 @@ export const Create = () => {
           category: "",
           categoryId: 1,
           isActive: true,
-          like:0
+          like:0,
+          summary:summary,
+          hashtags:hashtags
         };
         const img = {
           image: file.base64,
@@ -117,6 +122,17 @@ export const Create = () => {
               placeholder="blog içeriğini yazınız"
               onChange={(e) => setContent(e.target.value)}
             ></textarea>
+              <textarea
+              rows="30"
+              placeholder="Summary"
+              onChange={(e) => setSummary(e.target.value)}
+            ></textarea>
+            <textarea
+              rows="30"
+              placeholder="Hastags"
+              onChange={(e) => setHashtags(e.target.value)}
+            ></textarea>
+            
 
             <Createmd content={content} />
             <FetchCategory

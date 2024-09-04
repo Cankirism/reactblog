@@ -48,6 +48,8 @@ const blogSchema = mongoose.Schema({
   category: String,
   isActive: Boolean,
   like: Number,
+  summary:String,
+  hashtags:String
 });
 const blog = mongoose.model("blog", blogSchema);
 

@@ -10,10 +10,17 @@ import RecentComments from "../../components/comments/RecentComments"
 import { AiFillLike } from "react-icons/ai"
 import Likes from "../../components/blog/Likes"
 import Share from "./share/Share"
+import ReactGA from "react-ga4"
 const Details = () => {
+  
   const [blog, setBlog] = useState(null);
   const [likes,setLikes]=useState(0);
   const { id } = useParams();
+  ReactGA.send({
+    hitType:"pageview",
+    page:`/Details`,
+    title:`/details/${id}`
+  })
   
   useEffect(() => {
     console.log("details page")

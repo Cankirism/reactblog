@@ -9,7 +9,10 @@ import {
   AiOutlineLike,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import ReactGA from 'react-ga4'
 const Content = () => {
+  
+  
 
     const [blog,setBlog]=useState([]);
     const [category,setCategory]=useState("");

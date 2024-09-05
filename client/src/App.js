@@ -14,7 +14,8 @@ import Createmd from "./components/create/Createmd"
 import Authorize from "./authorize/Authorize"
 import ReactGA from 'react-ga4'
 const App = () => {
-  ReactGA.initialize("G-FCXVREF1VV");
+  ReactGA.initialize(process.env.REACT_APP_TRACKING_ID);
+
   return (
     <>
       <Router>

@@ -1,33 +1,35 @@
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.urls.org/schemas/url/0.9">
 	
-	<sitemap>
+	<url>
 		<loc>https://farukgungor.com/</loc>
-	</sitemap>
+	</url>
 	
-	<sitemap>
+	<url>
 		<loc>https://www.farukgungor.com/details/66dfe4e262823d73c834a9b0</loc>
-	</sitemap>
+	</url>
 	
 	
-	<sitemap>
+	<url>
 		<loc>https://www.farukgungor.com/details/66d9686971c09955a98a355e</loc>
-	</sitemap>
+	</url>
 	
-	<sitemap>
+	<url>
 		<loc>https://www.farukgungor.com/details/66d83d269eb5dd811cfbc159s</loc>
-	</sitemap>
-	<sitemap>
+	</url>
+	<url>
 		<loc>https://www.farukgungor.com/details/66d0310c21497433b935fa07</loc>
-	</sitemap>
-	<sitemap>
+	</url>
+	<url>
 		<loc>https://www.farukgungor.com/details/66c344260118423208bc3c73</loc>
-	</sitemap>
+	</url>
 	
 	
 	
 	
-	<sitemap>
+	<url>
 		<loc>https://www.farukgungor.com/details/66c340100118423208bc3c51</loc>
-	</sitemap>
+	</url>
 	
-	</sitemapindex>
+	</urlset>
